@@ -3,7 +3,6 @@ package com.example.pokedex
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.pokedex.databinding.ActivityLoginBinding
@@ -27,6 +26,15 @@ class LoginActivity : AppCompatActivity() {
         // Inicializa objetos:
         auth = Firebase.auth
         setLoginRegister() //sigue en la siguiente sección.
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val activeUser = auth.currentUser
+        if(activeUser != null){
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        }
     }
 
     private fun setLoginRegister(){
